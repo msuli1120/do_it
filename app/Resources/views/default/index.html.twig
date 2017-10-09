@@ -2,6 +2,13 @@
 
 {% block body %}
 
-  <h3>hello</h3>
+  {% if app.user %}
+    {% if app.user.userInfo %}
+      {{ app.user.userInfo }}
+      {% else %}
+        not existed
+    {% endif %}
+  {% endif %}
+
 
 {% endblock %}

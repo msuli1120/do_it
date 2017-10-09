@@ -1,0 +1,8 @@
+#log_in {
+    margin: 10% auto 0;
+    width: 30%;
+}
+
+#login-form-error {
+    color: red;
+}

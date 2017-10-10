@@ -10,7 +10,7 @@ parameters:
 
 framework:
     #esi: ~
-    translator: { fallbacks: ['en'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -81,3 +81,11 @@ fos_user:
         confirmation:
             enabled: true
             template: "@FOSUser/Registration/email.txt.twig"
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        user_image:
+            uri_prefix: /uploads/avatars
+            upload_destination: '%kernel.root_dir%/../web/uploads/avatars'
+            namer: vich_uploader.namer_uniqid

@@ -2,13 +2,27 @@
 
 {% block body %}
 
-  {% if app.user %}
-    {% if app.user.userInfo %}
-      {{ app.user.userInfo }}
+  {% include 'flash-message.html.twig' %}
+
+    {% if app.user %}
+      {% if app.user.userInfo %}
+        <h2>Welcome {{ app.user.username }}</h2>
       {% else %}
-        not existed
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <h2>Complete User Info</h2>
+
+          {{ form_start(form) }}
+
+          {{ form_errors(form) }}
+
+          {{ form_end(form) }}
+        </div>
+      {% endif %}
     {% endif %}
-  {% endif %}
+
+
+  <div class="col-md-3"></div>
 
 
 {% endblock %}

@@ -15,22 +15,21 @@
     <input type="password" id="password" name="_password" class="form-control" required="required" />
   </div>
 
-  <div class="form-group" id="remember-me">
-
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-
-    <div class="pull-right">
-      <a href="{{ url('fos_user_resetting_request') }}" id="forget-password">Forget Password?</a>
+  <div class="form-group row" id="remember-me">
+    <div class="col-md-6 col-sm-12 col-xs-12 text-center">
+      <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+      <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
     </div>
 
+    <div class="pull-right col-md-6 col-sm-12 col-xs-12 text-center">
+      <a href="{{ url('fos_user_resetting_request') }}" id="forget-password">Forget Password?</a>
+    </div>
   </div>
-
 
   {% if error %}
     <div id="login-form-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
   {% endif %}
-  <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+  <input class="center-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 </form>
 
 

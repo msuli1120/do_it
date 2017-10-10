@@ -23,7 +23,7 @@
 
       <ul class="nav navbar-nav navbar-right">
         {% if app.user %}
-          {% if app.user.userinfo %}
+          {% if app.user.userinfo and app.user.userinfo.imagename != 'null' %}
             <li><a href="{{ url('user_profile') }}"><img class="avatar" src="{{ ('/uploads/avatars/' ~ app.user.userinfo.imagename) }}"></a></li>
           {% endif %}
           <li class="dropdown">

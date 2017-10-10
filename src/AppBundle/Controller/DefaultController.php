@@ -49,7 +49,7 @@
 			$uploadFile = $userInfo->getImageFile();
 
 			if ($uploadFile === null) {
-				$userInfo->setImageName('default_avatar.jpg');
+				$userInfo->setImageName('null');
 				$userInfo->setImageSize(33);
 			} else {
 				$userInfo->setImageName($uploadFile->getFilename());

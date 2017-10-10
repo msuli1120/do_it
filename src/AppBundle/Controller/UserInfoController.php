@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Entity\UserInfo;
 use AppBundle\Form\UserInfoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -28,9 +29,46 @@ class UserInfoController extends Controller
 	public function editAction()
 	{
 		$userInfo = $this->getUser()->getUserInfo();
-		$form = $this->createForm(UserInfoType::class, $userInfo);
+		$form = $this->createForm(UserInfoType::class, $userInfo, array(
+			'action' => $this->generateUrl('update_user_info')
+		));
 		return $this->render(':default:edit_userinfo.html.twig', array(
 			'form' => $form->createView()
 		));
+	}
+
+	/**
+	 * @param Request $request
+	 *
+	 * @internal param UserInfo $userInfo
+	 * @Route("/user_info_update", name="update_user_info")
+	 * @Method("POST")
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 * @throws \LogicException
+	 */
+	public function updateAction(Request $request)
+	{
+		$userInfo = $this->getUser()->getUserInfo();
+		$form = $this->createForm(UserInfoType::class, $userInfo);
+		$form->handleRequest($request);
+
+		if (!$form->isSubmitted() || !$form->isValid()){
+			return $this->render(':default:edit_userinfo.html.twig', array(
+				'form' => $form->createView()
+			));
+		}
+
+		$uploadedFile = $userInfo->getImageFile();
+
+		if ( null === $uploadedFile) {
+			$userInfo->setImageName('null');
+			$userInfo->setImageSize(33);
+		} else {
+			$this->getUser()->getUserInfo()->setImageName($uploadedFile->getFilename());
+			$this->getUser()->getUserInfo()->setImageSize($uploadedFile->getSize());
+		}
+		$this->getDoctrine()->getManager()->flush();
+		$this->addFlash('success', 'Change Saved');
+		return $this->redirectToRoute('user_profile');
 	}
 }

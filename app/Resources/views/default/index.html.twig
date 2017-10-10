@@ -2,8 +2,6 @@
 
 {% block body %}
 
-  {% include 'flash-message.html.twig' %}
-
     {% if app.user %}
       {% if app.user.userInfo %}
         <h2>Welcome {{ app.user.username|ucwords }}</h2>

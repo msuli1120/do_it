@@ -15,12 +15,14 @@
 		/**
 		 * @Route("/", name="homepage")
 		 * @Method("GET")
+		 * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
 		 */
 		public function indexAction()
 		{
 			$form = $this->createForm(UserInfoType::class, null, array(
 				'action' => $this->generateUrl('handle_user_info_submission')
 			));
+			$form->remove('delete');
 			return $this->render('default/index.html.twig', array(
 				'form' => $form->createView()
 			));

@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\UserInfo;
 use AppBundle\Form\UserInfoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -58,17 +56,39 @@ class UserInfoController extends Controller
 			));
 		}
 
-		$uploadedFile = $userInfo->getImageFile();
+		if ($form->getClickedButton() && 'save' === $form->getClickedButton()->getName()) {
+			$uploadedFile = $userInfo->getImageFile();
+			$image = $userInfo->getImageName();
+			$size = $userInfo->getImageSize();
 
-		if ( null === $uploadedFile) {
-			$userInfo->setImageName('null');
-			$userInfo->setImageSize(33);
-		} else {
-			$this->getUser()->getUserInfo()->setImageName($uploadedFile->getFilename());
-			$this->getUser()->getUserInfo()->setImageSize($uploadedFile->getSize());
+			if ( null === $uploadedFile) {
+				if ($image === null) {
+					$userInfo->setImageName('null');
+					$userInfo->setImageSize(33);
+				} else {
+					$userInfo->setImageName($image);
+					$userInfo->setImageSize($size);
+				}
+			} else {
+				$this
+					->getUser()
+					->getUserInfo()
+					->setImageName($uploadedFile->getFilename())
+				;
+				$this
+					->getUser()
+					->getUserInfo()
+					->setImageSize($uploadedFile->getSize())
+				;
+			}
+			$this->getDoctrine()->getManager()->flush();
+			$this->addFlash('success', 'Change Saved');
+			return $this->redirectToRoute('user_profile');
 		}
-		$this->getDoctrine()->getManager()->flush();
-		$this->addFlash('success', 'Change Saved');
-		return $this->redirectToRoute('user_profile');
+
+		if ($form->getClickedButton() && 'delete' === $form->getClickedButton()->getName()) {
+			dump('this is delete action');
+			die;
+		}
 	}
 }

@@ -34,7 +34,11 @@
 					'label' => 'Avatar'
 				))
 				->add('save', SubmitType::class, array('label' => 'save', 'attr' => [
-					'formnovalidate' => true
+					'formnovalidate' => true,
+					'class' => 'btn btn-primary'
+				]))
+				->add('delete', SubmitType::class, array('label' => 'delete', 'attr' => [
+					'class' => 'btn btn-danger'
 				]))
 			;
 		}

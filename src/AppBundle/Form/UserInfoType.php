@@ -33,11 +33,11 @@
 					'download_label' => 'download my avatar',
 					'label' => 'Avatar'
 				))
-				->add('save', SubmitType::class, array('label' => 'save', 'attr' => [
+				->add('save', SubmitType::class, array('label' => 'Save', 'attr' => [
 					'formnovalidate' => true,
 					'class' => 'btn btn-primary'
 				]))
-				->add('delete', SubmitType::class, array('label' => 'delete', 'attr' => [
+				->add('delete', SubmitType::class, array('label' => 'Delete Account', 'attr' => [
 					'class' => 'btn btn-danger'
 				]))
 			;

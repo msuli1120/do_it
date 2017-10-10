@@ -41,7 +41,7 @@ class UserInfoController extends Controller
 	 * @internal param UserInfo $userInfo
 	 * @Route("/user_info_update", name="update_user_info")
 	 * @Method("POST")
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @throws \LogicException
 	 */
 	public function updateAction(Request $request)
@@ -87,8 +87,14 @@ class UserInfoController extends Controller
 		}
 
 		if ($form->getClickedButton() && 'delete' === $form->getClickedButton()->getName()) {
-			dump('this is delete action');
-			die;
+			$user = $this->getUser();
+			$userInfo = $this->getUser()->getUserInfo();
+			$em = $this->getDoctrine()->getManager();
+			$em->remove($userInfo);
+			$em->remove($user);
+			$em->flush();
+			$this->addFlash('success', 'We are sorry to hear that you are leaving us!');
 		}
+		return $this->redirectToRoute('homepage');
 	}
 }

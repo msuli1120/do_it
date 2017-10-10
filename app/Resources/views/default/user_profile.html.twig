@@ -4,7 +4,15 @@
 
   {% if app.user.userinfo %}
     <h2>{{ app.user|ucwords }}'s profile</h2>
-    {{ app.user.userinfo.bio }}
+    <br>
+    <p><span style="font-size: larger">First name</span>: {{ app.user.userinfo.firstname }}</p>
+    <p><span style="font-size: larger">Last name</span>: {{ app.user.userinfo.lastname }}</p>
+    <p><span style="font-size: larger">Bio</span>: {{ app.user.userinfo.bio }}</p>
+    <br>
+    {% if app.user.userinfo.user.id == app.user.id %}
+      <a href="{{ url('edit_user_info') }}">Edit Profile</a>
+    {% endif %}
+
   {% else %}
     <h2>Please create user info on homepage!</h2>
   {% endif %}

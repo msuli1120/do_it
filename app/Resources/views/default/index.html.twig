@@ -6,7 +6,7 @@
 
     {% if app.user %}
       {% if app.user.userInfo %}
-        <h2>Welcome {{ app.user.username }}</h2>
+        <h2>Welcome {{ app.user.username|ucwords }}</h2>
       {% else %}
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -19,6 +19,8 @@
           {{ form_end(form) }}
         </div>
       {% endif %}
+    {% else %}
+      <h2>Join <a id="app-name" href="{{ path('fos_user_registration_register') }}">Do It</a></span></h2>
     {% endif %}
 
 

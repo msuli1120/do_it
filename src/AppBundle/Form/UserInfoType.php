@@ -25,7 +25,14 @@
 				->add('firstName', TextType::class)
 				->add('lastName', TextType::class)
 				->add('bio', TextareaType::class)
-				->add('imageFile', VichImageType::class)
+				->add('imageFile', VichImageType::class, array(
+					'required' => false,
+					'allow_delete' => false,
+					'image_uri' => false,
+					'download_uri' => true,
+					'download_label' => 'download my avatar',
+					'label' => 'Avatar'
+				))
 				->add('save', SubmitType::class, array('label' => 'save', 'attr' => [
 					'formnovalidate' => true
 				]))

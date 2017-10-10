@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+  <div class="col-md-2"></div>
+
+  <div class="col-md-8">
+
+    <h2>Edit</h2>
+    {% if app.user.userinfo %}
+      {{ form_start(form) }}
+
+      {{ form_errors(form) }}
+
+      {{ form_end(form) }}
+    {% else %}
+      <h2>Please complete user info on homepage!</h2>
+    {% endif %}
+
+
+  </div>
+
+  <div class="col-md-2"></div>
+
+{% endblock %}

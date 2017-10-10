@@ -47,29 +47,20 @@
 			}
 
 			$uploadFile = $userInfo->getImageFile();
-			if ($uploadFile !== null) {
-				if (in_array($uploadFile->getMimeType(), ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'], true)) {
-					if ($uploadFile->getSize() < 3000000) {
-						$userInfo->setUser($this->getUser());
-						$em = $this->getDoctrine()->getManager();
-						$em->persist($userInfo);
-						$em->flush();
-						$this->addFlash('success', 'User info has been saved successfully!');
-					} else {
-						$this->addFlash('warning', 'File size has to be lower than 3MB');
-					}
-				} else {
-					$this->addFlash('warning', 'Only support png, jpg, jpeg or gif');
-				}
-			} else {
-				$userInfo->setUser($this->getUser());
+
+			if ($uploadFile === null) {
 				$userInfo->setImageName('default_avatar.jpg');
 				$userInfo->setImageSize(33);
-				$em = $this->getDoctrine()->getManager();
-				$em->persist($userInfo);
-				$em->flush();
-				$this->addFlash('success', 'User info has been saved successfully!');
+			} else {
+				$userInfo->setImageName($uploadFile->getFilename());
+				$userInfo->setImageSize($uploadFile->getSize());
 			}
+
+			$userInfo->setUser($this->getUser());
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($userInfo);
+			$em->flush();
+			$this->addFlash('success', 'User info has been saved successfully!');
 			return $this->redirectToRoute('homepage');
 		}
 	}

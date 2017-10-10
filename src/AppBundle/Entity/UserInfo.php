@@ -31,6 +31,10 @@
 		private $user;
 
 		/**
+		 * @Assert\File(
+		 *   maxSize="3000000k",
+		 *   mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}
+		 * )
 		 * @Vich\UploadableField(mapping="user_image", fileNameProperty="imageName", size="imageSize")
 		 * @var File
 		 */

@@ -12,3 +12,9 @@
     color: #5dade2;
     text-align: center;
 }
+
+.avatar {
+    width: 20px;
+    height: 20px;
+    margin-left: 50%;
+}

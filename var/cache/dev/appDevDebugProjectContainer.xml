@@ -519,6 +519,9 @@
       <argument type="service" id="router.default"/>
       <argument type="service" id="session"/>
     </service>
+    <service id="AppBundle\Form\InvitationType" class="AppBundle\Form\InvitationType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="AppBundle\Form\UserGroupType" class="AppBundle\Form\UserGroupType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -718,7 +721,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>hRdWWTR0VfLrQbtTrUjER0</argument>
+      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -728,7 +731,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>hRdWWTR0VfLrQbtTrUjER0</argument>
+      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -844,7 +847,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id="service_locator.ed617404c890ea93e7386436c71feebc"/>
+      <argument type="service" id="service_locator.502311bcb68112ad25619bb0d2fe2a05"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -2098,14 +2101,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -3220,12 +3215,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>59ddbfb3c36676.15641157</argument>
+      <argument>59ddc342c3ad58.68202984</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>59ddbfb3c36676.15641157</argument>
+      <argument>59ddc342c3ad58.68202984</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -4710,6 +4705,8 @@
     <service id="abstract.instanceof.AppBundle\Controller\UserGroupController" class="AppBundle\Controller\UserGroupController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\UserInfoController" class="AppBundle\Controller\UserInfoController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\UserInfoController" class="AppBundle\Controller\UserInfoController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\InvitationType" class="AppBundle\Form\InvitationType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\InvitationType" class="AppBundle\Form\InvitationType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\UserGroupType" class="AppBundle\Form\UserGroupType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\UserGroupType" class="AppBundle\Form\UserGroupType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\UserInfoType" class="AppBundle\Form\UserInfoType" public="false" autowire="true" abstract="true"/>
@@ -4753,9 +4750,10 @@
         <argument key="translation.loader.yml" type="service" id="translation.loader.yml"/>
       </argument>
     </service>
-    <service id="service_locator.ed617404c890ea93e7386436c71feebc" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.502311bcb68112ad25619bb0d2fe2a05" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="AppBundle\Form\InvitationType" type="service" id="AppBundle\Form\InvitationType"/>
         <argument key="AppBundle\Form\UserGroupType" type="service" id="AppBundle\Form\UserGroupType"/>
         <argument key="AppBundle\Form\UserInfoType" type="service" id="AppBundle\Form\UserInfoType"/>
         <argument key="FOS\UserBundle\Form\Type\ChangePasswordFormType" type="service" id="fos_user.change_password.form.type"/>
@@ -4989,7 +4987,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>c8GmSTc+AM</argument>
       <argument>0</argument>
-      <argument>hRdWWTR0VfLrQbtTrUjER0</argument>
+      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4997,7 +4995,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>CmVjBL2Vmt</argument>
       <argument>0</argument>
-      <argument>hRdWWTR0VfLrQbtTrUjER0</argument>
+      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -5005,7 +5003,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>pH71vFduOZ</argument>
       <argument>0</argument>
-      <argument>hRdWWTR0VfLrQbtTrUjER0</argument>
+      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -5013,7 +5011,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>vbBZR4iH3V</argument>
       <argument>0</argument>
-      <argument>hRdWWTR0VfLrQbtTrUjER0</argument>
+      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

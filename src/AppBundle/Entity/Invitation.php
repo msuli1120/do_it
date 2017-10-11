@@ -3,6 +3,7 @@
 	namespace AppBundle\Entity;
 
 	use Doctrine\ORM\Mapping as ORM;
+	use Symfony\Component\Validator\Constraints as Assert;
 
 	/**
 	 * Invitation
@@ -29,6 +30,7 @@
 		private $accept;
 
 		/**
+		 * @Assert\Type("string")
 		 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="invitations")
 		 */
 		private $user;

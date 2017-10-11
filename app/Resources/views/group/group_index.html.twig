@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block sidenav %}
+    <h3>Create a group</h3>
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block body %}
+
+  {% if app.user.admingroups %}
+    <h2>My Groups</h2>
+    <br>
+    <ol>
+      {% for admingroup in app.user.admingroups %}
+        <li>
+          <a href="{{ url('my_admin_group', { 'id': admingroup.id }) }}">{{ admingroup.name }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <h2>You haven't created any groups yet.</h2>
+  {% endif %}
+
+
+
+{% endblock %}

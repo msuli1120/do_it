@@ -48,6 +48,7 @@ security:
         - { path: ^/reigster, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user_info, role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/submit_info, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/edit/*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/group/*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user_info_update, role: IS_AUTHENTICATED_FULLY }

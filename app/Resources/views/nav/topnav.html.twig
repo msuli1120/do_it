@@ -16,7 +16,7 @@
       <ul class="nav navbar-nav">
         <li {% if app.request.attributes.get('_route')=='homepage' %} class="active" {% endif %}><a href="{{ url('homepage') }}">Home</a></li>
         <li><a href="#">Explore</a></li>
-        <li><a href="">Groups</a></li>
+        <li {% if app.request.attributes.get('_route')=='user_groups' %} class="active" {% endif %}><a href="{{ url('user_groups') }}">Groups</a></li>
         <li><a href="">Do</a></li>
         <li><a href="">About</a></li>
       </ul>

@@ -2,8 +2,8 @@
 
 	namespace AppBundle\Controller;
 
-	use AppBundle\Entity\User;
 	use AppBundle\Entity\UserGroup;
+	use AppBundle\Form\InvitationType;
 	use AppBundle\Form\UserGroupType;
 	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 	use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -80,6 +80,10 @@
 		 */
 		public function myGroupAction(Int $id)
 		{
+			$form = $this->createForm(InvitationType::class, null, array(
+				'action' => $this->generateUrl('send_invitation'),
+				'method' => 'POST'
+			));
 			$userGroup = $this->getDoctrine()
 			                  ->getRepository(UserGroup::class)
 			                  ->findOneBy(array(
@@ -90,8 +94,10 @@
 				$this->addFlash('warning', "You don't have the permission.");
 				return $this->redirectToRoute('homepage');
 			}
+
 			return $this->render(':group:my_admin_group.html.twig', array(
-				'myAdminGroup' => $userGroup
+				'myAdminGroup' => $userGroup,
+				'form' => $form->createView()
 			));
 		}
 	}

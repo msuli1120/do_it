@@ -149,11 +149,16 @@
 		}
 
 		/**
-		 * @param mixed $users
+		 * @param User $user
+		 *
+		 * @internal param mixed $users
 		 */
-		public function setUsers($users)
+		public function setUser(User $user): void
 		{
-			$this->users = $users;
+			if ($this->users->contains($user)){
+				return;
+			}
+			$this->users[] = $user;
 		}
 
 		/**
@@ -171,5 +176,14 @@
 		{
 			$this->invitations = $invitations;
 		}
+
+		public function removeUser(User $user)
+		{
+			if (! $this->users->contains($user)){
+				return;
+			}
+			$this->users->removeElement($user);
+		}
+
 	}
 

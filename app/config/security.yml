@@ -51,4 +51,5 @@ security:
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/edit/*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/group/*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user/*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/user_info_update, role: IS_AUTHENTICATED_FULLY }

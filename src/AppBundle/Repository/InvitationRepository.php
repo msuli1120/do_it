@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class InvitationRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findInvitationsByUserId($id)
+	{
+		$qb = $this->createQueryBuilder('i');
+		$qb->select('i, user_group, user')
+			->join('i.group', 'user_group')
+			->join('i.user', 'user')
+			->where('user.id = :id')
+			->andWhere('i.accept = :bool')
+			->setParameter('id', $id)
+			->setParameter('bool', false);
+		return $qb->getQuery()->getResult();
+	}
+
 }

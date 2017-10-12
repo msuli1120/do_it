@@ -65,4 +65,5 @@
 			$this->addFlash('success', 'User info has been saved successfully!');
 			return $this->redirectToRoute('homepage');
 		}
+
 	}

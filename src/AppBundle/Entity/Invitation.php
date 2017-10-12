@@ -22,24 +22,25 @@
 		 */
 		private $id;
 
+
+		/**
+		 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="invitations")
+		 * @Assert\Regex("/^[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$/")
+		 */
+		private $user;
+
+		/**
+		 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGroup", inversedBy="invitations")
+		 * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+		 */
+		private $group;
+
 		/**
 		 * @var bool
 		 *
 		 * @ORM\Column(name="accept", type="boolean")
 		 */
 		private $accept;
-
-		/**
-		 * @Assert\Type("string")
-		 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="invitations")
-		 */
-		private $user;
-
-
-		/**
-		 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGroup", inversedBy="invitations")
-		 */
-		private $group;
 
 		public function __construct($accept = false)
 		{
@@ -108,9 +109,10 @@
 		/**
 		 * @param mixed $group
 		 */
-		public function setGroup($group): void
+		public function setGroup($group)
 		{
 			$this->group = $group;
 		}
+
 	}
 

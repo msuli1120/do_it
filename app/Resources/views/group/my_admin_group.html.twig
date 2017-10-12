@@ -1,8 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block sidenav %}
+  <h3>Invite User</h3>
+  {{ form_start(form) }}
+    {{ form_widget(form.group, { 'attr': { 'value': myAdminGroup.id } }) }}
+    {{ form_errors(form) }}
+  {{ form_end(form) }}
+
+{% endblock %}
+
 {% block body %}
 
-  {{ myAdminGroup.name }}
+  <h2>Group name: {{ myAdminGroup.name }}</h2>
 
 
 {% endblock %}

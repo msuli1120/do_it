@@ -20,7 +20,7 @@
       <h1 id="app-name">Do It</h1>
     </div>
 
-    {% if app.request.attributes.get('_route')=='user_groups' %}
+    {% if app.request.attributes.get('_route')=='user_groups' or app.request.attributes.get('_route')=='my_admin_group' %}
       <div id="side-nav" class="container">
         {% block sidenav %}{% endblock %}
       </div>
@@ -31,9 +31,10 @@
     {% block body %}{% endblock %}
   </div>
 
-  {% if app.request.attributes.get('_route')=='user_groups' %}
-    <button id="helper-button" class="btn">Group</button>
+  {% if app.request.attributes.get('_route')=='user_groups' or app.request.attributes.get('_route')=='my_admin_group' %}
+    <button class="btn btn-primary helper-button" id="group-button">Group</button>
   {% endif %}
+
 
 {% block javascripts %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"

@@ -506,6 +506,9 @@
     <service id="AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="AppBundle\Controller\InvitationController" class="AppBundle\Controller\InvitationController" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\Controller\RegistrationController" class="AppBundle\Controller\RegistrationController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
@@ -527,6 +530,10 @@
     </service>
     <service id="AppBundle\Form\UserInfoType" class="AppBundle\Form\UserInfoType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+    </service>
+    <service id="AppBundle\Service\InvitationService" class="AppBundle\Service\InvitationService" public="false" autowire="true" autoconfigure="true">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument type="service" id="security.token_storage"/>
     </service>
     <service id="AppBundle\Twig\UcWordsExtension" class="AppBundle\Twig\UcWordsExtension" public="false" autowire="true" autoconfigure="true">
       <tag name="twig.extension"/>
@@ -552,7 +559,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.53149c4ec6f648c33860fcf428cda956"/>
+      <argument type="service" id="service_locator.69c0617e1a50693f4b15f88ecaacc766"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -721,7 +728,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
+      <argument>RkFBqzM3bS5BK1A14a6pcd</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -731,7 +738,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
+      <argument>RkFBqzM3bS5BK1A14a6pcd</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -2101,6 +2108,14 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
+        <argument>console.command</argument>
+        <argument type="collection">
+          <argument type="service" id="debug.debug_handlers_listener"/>
+          <argument>configure</argument>
+        </argument>
+        <argument>2048</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -2747,6 +2762,13 @@
         <argument>null</argument>
       </call>
       <call method="add">
+        <argument type="service" id="security.request_matcher.f0cc5df9cdd91fc13437abc4c2e91146d63671610a2d18232c0d364e43b499883b56e4e6"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_FULLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
         <argument type="service" id="security.request_matcher.e0822f72c280050b71fae6bf59263c38d0c1666b44555ddbdff58939b32135c82675bba9"/>
         <argument type="collection">
           <argument>IS_AUTHENTICATED_FULLY</argument>
@@ -3215,12 +3237,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>59ddc342c3ad58.68202984</argument>
+      <argument>59df85126ef2b7.72983230</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>59ddc342c3ad58.68202984</argument>
+      <argument>59df85126ef2b7.72983230</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -3273,6 +3295,9 @@
     </service>
     <service id="security.request_matcher.fe826b16b57754e14de22624436be666c618653db4e3720aaef7ff9d9bd731cc19759e2a" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/group/*</argument>
+    </service>
+    <service id="security.request_matcher.f0cc5df9cdd91fc13437abc4c2e91146d63671610a2d18232c0d364e43b499883b56e4e6" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/user/*</argument>
     </service>
     <service id="security.request_matcher.e0822f72c280050b71fae6bf59263c38d0c1666b44555ddbdff58939b32135c82675bba9" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/user_info_update</argument>
@@ -3375,6 +3400,10 @@
       </call>
       <call method="addRuntimeLoader">
         <argument type="service" id="twig.runtime_loader"/>
+      </call>
+      <call method="addGlobal">
+        <argument>invitation</argument>
+        <argument type="service" id="AppBundle\Service\InvitationService"/>
       </call>
       <configurator service="twig.configurator.environment" method="configure"/>
     </service>
@@ -4699,6 +4728,8 @@
     </service>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\InvitationController" class="AppBundle\Controller\InvitationController" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\InvitationController" class="AppBundle\Controller\InvitationController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\RegistrationController" class="AppBundle\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\RegistrationController" class="AppBundle\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\UserGroupController" class="AppBundle\Controller\UserGroupController" autowire="true" abstract="true"/>
@@ -4718,6 +4749,10 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
+    <service id="service_locator.3e0e8ef231fa99e9a1dff5a1344e0963" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
     <service id="service_locator.63f84423661c0fd0611294cfab8ae145" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
@@ -4730,7 +4765,7 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.53149c4ec6f648c33860fcf428cda956" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.69c0617e1a50693f4b15f88ecaacc766" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -4987,7 +5022,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>c8GmSTc+AM</argument>
       <argument>0</argument>
-      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
+      <argument>RkFBqzM3bS5BK1A14a6pcd</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4995,7 +5030,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>CmVjBL2Vmt</argument>
       <argument>0</argument>
-      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
+      <argument>RkFBqzM3bS5BK1A14a6pcd</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -5003,7 +5038,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>pH71vFduOZ</argument>
       <argument>0</argument>
-      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
+      <argument>RkFBqzM3bS5BK1A14a6pcd</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -5011,7 +5046,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>vbBZR4iH3V</argument>
       <argument>0</argument>
-      <argument>jlmVxYUMR+vmb+EnUgSJC7</argument>
+      <argument>RkFBqzM3bS5BK1A14a6pcd</argument>
       <argument>/home/xing/Desktop/workspace/do_it/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

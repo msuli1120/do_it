@@ -23,6 +23,9 @@
 
       <ul class="nav navbar-nav navbar-right">
         {% if app.user %}
+          {% if invitation.invitationCount %}
+            <li><a href="{{ url('notification') }}"><span class="badge">{{ invitation.invitationCount }}</span></a></li>
+          {% endif %}
           {% if app.user.userinfo and app.user.userinfo.imagename != 'null' %}
             <li {% if app.request.attributes.get('_route') == 'user_profile' %}class="active"{% endif %}><a href="{{ url('user_profile') }}"><img class="avatar" src="{{ ('/uploads/avatars/' ~ app.user.userinfo.imagename) }}"></a></li>
           {% endif %}

@@ -82,19 +82,24 @@
 		}
 
 		/**
-		 * @return mixed
+		 * @return ArrayCollection
 		 */
-		public function getUserGroups()
+		public function getUserGroups(): ArrayCollection
 		{
 			return $this->userGroups;
 		}
 
 		/**
-		 * @param mixed $userGroups
+		 * @param UserGroup $userGroup
+		 *
+		 * @internal param mixed $userGroups
 		 */
-		public function setUserGroups($userGroups)
+		public function setUserGroup(UserGroup $userGroup)
 		{
-			$this->userGroups = $userGroups;
+			if ($this->userGroups->contains($userGroup)){
+				return;
+			}
+			$this->userGroups[] = $userGroup;
 		}
 
 		/**
@@ -112,4 +117,13 @@
 		{
 			$this->invitations = $invitations;
 		}
+
+		public function removeUserGroup(UserGroup $userGroup)
+		{
+			if (! $this->userGroups->contains($userGroup)){
+				return;
+			}
+			$this->userGroups->removeElement($userGroup);
+		}
+
 	}

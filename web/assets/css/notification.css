@@ -1,0 +1,9 @@
+.panel-body {
+    position: relative;
+}
+
+.button-group {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

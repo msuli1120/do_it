@@ -3,6 +3,7 @@
 	namespace AppBundle\Form;
 
 	use Symfony\Component\Form\AbstractType;
+	use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 	use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 	use Symfony\Component\Form\Extension\Core\Type\TextType;
 	use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +18,12 @@
 		public function buildForm(FormBuilderInterface $builder, array $options): void
 		{
 			$builder
-				->add('user', TextType::class)
+				->add('group', HiddenType::class, array(
+					'required' => true
+				))
+				->add('user', TextType::class, array(
+					'label' => 'Enter username'
+				))
 				->add('send', SubmitType::class, array(
 					'label' => 'Invite',
 					'attr' => array(

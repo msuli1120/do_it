@@ -13,5 +13,9 @@
 
   <h2>Group name: {{ myAdminGroup.name }}</h2>
 
+  {{ myAdminGroup.users|length }}
+  {% for user in myAdminGroup.users %}
+    {{ user.email }}
+  {% endfor %}
 
 {% endblock %}
